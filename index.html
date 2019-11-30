@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Tasks</title>
+    <script id="item-template" type="text/html">
+        <li>
+          <span>_TEXT_</span>
+          <button onclick="removeItem(event)">×</button>
+        </li>
+    </script>
+  </head>
+  <body>
+    <h2>Awesome Tasks</h2>
+    <ul id="task-list">
+        <li>
+            <span>Buy coffee</span>
+            <button onclick="removeItem(event)">×</button>
+        </li>
+    </ul>
+
+    <form onsubmit="createNew(event)">
+        <input id="new-item" placeholder="Add a new task...">
+        <button>Add</button>
+    </form>
+
+    <script>
+        var listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
+        //
+        // Defining our `updateList()` function...
+        var updateList = function(items) {
+            var listElement = document.querySelector('#task-list');
+            listElement.innerHTML = '';
+            
+            items.forEach(function(item) {
+                listElement.innerHTML += renderItem(item); //'<li>' + item + '</li>';
+            });
+        }
+        // crea l'html per la lista
+        var renderItem = function(itemText) {
+            return '<li>' + itemText + '</li>';
+        }
+        // Calling our `updateList()` function passing an array of tasks
+        //updateList(listItems);
+        //
+        var createNew = function(event) {
+            event.preventDefault();
+            //
+            var newItemElement = document.querySelector('#new-item');
+            var newItemValue = newItemElement.value.trim();
+            //
+            if (!newItemValue) return;
+            //
+            listItems.push(newItemValue);
+            newItemElement.value = '';
+            ///
+            updateList(listItems);
+        }
+    </script>
+  </body>
+</html>
