@@ -25,7 +25,12 @@
     </form>
 
     <script>
-        var listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
+        //var listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
+        var listItems = [
+            { text: 'Buy coffee',  completed: true  },
+            { text: 'Buy milk',    completed: false },
+            { text: 'Disco dance', completed: false }
+        ]
         //
         // Defining our `updateList()` function...
         var updateList = function(items) {
@@ -37,13 +42,14 @@
             });
         }
         // crea l'html per la lista
-        var renderItem = function(itemText) {
+        var renderItem = function(item) {
             //return '<li>' + itemText + '</li>';
             var template = document.querySelector('#item-template').innerHTML;
-            return template.replace('_TEXT_', itemText);
+            //return template.replace('_TEXT_', itemText);
+            return template.replace('_TEXT_', item.text);
         }
         // Calling our `updateList()` function passing an array of tasks
-        //updateList(listItems);
+        updateList(listItems);
         //
         var createNew = function(event) {
             event.preventDefault();
@@ -53,7 +59,8 @@
             //
             if (!newItemValue) return;
             //
-            listItems.push(newItemValue);
+            //listItems.push(newItemValue);
+            listItems.push({'text': newItemValue, 'complete': false});
             newItemElement.value = '';
             ///
             updateList(listItems);
@@ -61,13 +68,16 @@
         ///
         var removeItem = function(event) {
             var clickedItemText = event.target.previousElementSibling.innerHTML;
-
+            //
+            console.log(listItems);
             listItems = listItems.filter(function(itemText) {
                 return clickedItemText != itemText;
             });
-
-            updateList(listItems);
+            //
+            console.log(listItems);
+            //updateList(listItems);
         }
+        //
     </script>
   </body>
 </html>
