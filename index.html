@@ -23,7 +23,7 @@
         <input id="new-item" placeholder="Add a new task...">
         <button>Add</button>
     </form>
-
+    
     <script>
         //var listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
         var listItems = [
@@ -48,8 +48,6 @@
             //return template.replace('_TEXT_', itemText);
             return template.replace('_TEXT_', item.text);
         }
-        // Calling our `updateList()` function passing an array of tasks
-        updateList(listItems);
         //
         var createNew = function(event) {
             event.preventDefault();
@@ -89,6 +87,9 @@
             });
         }
         //
+        // Calling our `updateList()` function passing an array of tasks
+        updateList(listItems);
+        ///
     </script>
   </body>
 </html>
