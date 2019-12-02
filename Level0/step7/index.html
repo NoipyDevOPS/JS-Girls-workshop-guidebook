@@ -15,6 +15,10 @@
     <h2>Awesome Tasks</h2>
     <ul id="task-list" class="list-group">
     </ul>
+  
+  <hr>
+  <button onclick="clearCompleted()" class="btn btn-default btn-xs">Clear completed</button>
+
 
     <div class="panel-footer text-center small">
       <span>show:</span>
@@ -46,7 +50,7 @@
       }  
 
       // Defining our `updateList()` function...
-      var updateList = function(items) {
+      var updateList = function(items, save) {
         var listElement = document.querySelector('#task-list');
         listElement.innerHTML = '';
 
@@ -54,10 +58,13 @@
           listElement.innerHTML += renderItem(item);   
         });
 
-        localStorage.listElement = JSON.stringify(items); // new line added
+        if (save) localStorage.listItems = JSON.stringify(items);
       }
-      updateList(listItems);
       
+      updateList(listItems, true);
+      
+      // Create new task
+
       var createNew = function(event) {
         event.preventDefault();
 
@@ -71,14 +78,17 @@
         listItems.push(item);
         newItemElement.value = '';
 
-        updateList(listItems);
+        updateList(listItems, true);
       }
+      
+      //remove task
+
       var removeItem = function(event) {
         var clickedItemText = event.target.previousElementSibling.innerHTML;
         listItems = listItems.filter(function(item) {
           return clickedItemText != item.text;
         });
-        updateList(listItems);
+        updateList(listItems, true);
       }
       var toggleStatus = function(event) {
         var clickedItemText = event.target.innerHTML;
@@ -89,7 +99,9 @@
           }
         });
 
-        updateList(listItems);
+        updateList(listItems, true);
+
+      //filtra items
 
       var filterItems = function(status) {
         var itemsToShow = [];
