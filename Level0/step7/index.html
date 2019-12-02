@@ -19,7 +19,6 @@
   <hr>
   <button onclick="clearCompleted()" class="btn btn-default btn-xs">Clear completed</button>
 
-
     <div class="panel-footer text-center small">
       <span>show:</span>
       <button onclick="filterItems()" class="" filter filter-all!>All</button>
@@ -120,6 +119,15 @@
 
           updateList(itemsToShow);
         }
+
+      var clearCompleted = function() {
+        listItems = listItems.filter(function(item) {
+          return !item.completed;
+        });
+
+        updateList(listItems, true);
+      }    
+
       }
     </script>
   </body>
