@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Tasks</title>
+     <script id="item-template" type="text/html">
+      <li>
+        <span onclick="(event)">_TEXT_</span>
+        <button onclick="removeItem(event)">×</button>
+      </li>
+    </script>
+  </head>
+  <body>
+    <h2>Awesome Tasks</h2>
+    <ul id="task-list" class="list-group">
+    </ul>
+
+    <div class="panel-footer text-center small">
+      <span>show:</span>
+      <button onclick="filterItems()" class="" filter filter-all!>All</button>
+      <button onclick="filterItems('active')" class="filter filter-active">Active</button>
+      <button onclick="filterItems('completed')" class="filter filter-completed">Completed</button>
+    </div>
+    
+    <form onsubmit="createNew(event)">
+        <input id="new-item" placeholder="Add a new task...">
+        <button>Add</button>
+      </form>
+
+    <script>
+    
+      //var listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
+      
+      var loadlist = function() {
+        if (localStorage.listItems) return JSON.parse(localStorage.listItems);
+      }
+      var listItems = [
+        { text: 'Buy coffee',  completed: true  },
+        { text: 'Buy milk',    completed: false },
+        { text: 'Disco dance', completed: false }
+      ];
+      var renderItem = function(item) {
+        var template = document.querySelector('#item-template').innerHTML;
+        return template.replace('_TEXT_', item.text);
+      }  
+
+      // Defining our `updateList()` function...
+      var updateList = function(items) {
+        var listElement = document.querySelector('#task-list');
+        listElement.innerHTML = '';
+
+        items.forEach(function(item) {
+          listElement.innerHTML += renderItem(item);   
+        });
+
+        localStorage.listElement = JSON.stringify(items); // new line added
+      }
+      updateList(listItems);
+      
+      var createNew = function(event) {
+        event.preventDefault();
+
+        var newItemElement = document.querySelector('#new-item');
+        var newItemValue = newItemElement.value.trim();
+
+        if (!newItemValue) return;
+
+        var item = { text: newItemValue, completed: false }
+        
+        listItems.push(item);
+        newItemElement.value = '';
+
+        updateList(listItems);
+      }
+      var removeItem = function(event) {
+        var clickedItemText = event.target.previousElementSibling.innerHTML;
+        listItems = listItems.filter(function(item) {
+          return clickedItemText != item.text;
+        });
+        updateList(listItems);
+      }
+      var toggleStatus = function(event) {
+        var clickedItemText = event.target.innerHTML;
+
+        listItems.forEach(function(item) {
+          if (clickedItemText == item.text) {
+            item.completed = !item.completed;
+          }
+        });
+
+        updateList(listItems);
+
+      var filterItems = function(status) {
+        var itemsToShow = [];
+
+        if (status== 'completed') {
+          itemsToShow = listItems.filter(function(item) {
+            return item.completed;
+          });  
+        } else if (status == 'active') {
+              itemsToShow = listItems.filter(function(item) {
+                return !item.completed;
+              });  
+          } else {
+            itemsToShow = listItems;
+            }
+
+          updateList(itemsToShow);
+        }
+      }
+    </script>
+  </body>
+</html>
