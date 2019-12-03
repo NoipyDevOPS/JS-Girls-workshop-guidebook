@@ -99,11 +99,8 @@
           }
         });
         updateList(listItems, true);
-<<<<<<< HEAD
       }
 
-=======
->>>>>>> 6471fd5cc0e0f0474e772db3e67bfd94ad8855ec
       //filtra items
       var filterItems = function(status) {
         var itemsToShow = [];
@@ -121,12 +118,8 @@
             itemsToShow = listItems;
             }
           updateList(itemsToShow);
-<<<<<<< HEAD
       }
 
-=======
-        }
->>>>>>> 6471fd5cc0e0f0474e772db3e67bfd94ad8855ec
       // clear completed
       var clearCompleted = function() {
         listItems = listItems.filter(function(item) {
@@ -134,20 +127,6 @@
         });
         updateList(listItems, true);
       }
-<<<<<<< HEAD
-
-=======
-      // update counters
-      var updateCounters = function() {
-        var completedCount = 0;
-        listItems.forEach(function(item) {
-          if (item.completed) completedCount++;
-        });
-        document.querySelector('.filter-all').dataset.count = listItems.length;
-        document.querySelector('.filter-active').dataset.count = listItems.length - completedCount;
-        document.querySelector('.filter-completed').dataset.count = completedCount;
-      }
->>>>>>> 6471fd5cc0e0f0474e772db3e67bfd94ad8855ec
     </script>
   </body>
 </html>
