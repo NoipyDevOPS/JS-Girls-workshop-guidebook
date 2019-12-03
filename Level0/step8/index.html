@@ -56,9 +56,8 @@
       // render item
       var renderItem = function(item) {
         var template = document.querySelector('#item-template').innerHTML;
-        return template
-          .replace('_TEXT_', item.text);
-          .replace('_COMPLETED_', item.completed);
+        return template.replace('_TEXT_', item.text);
+               template.replace('_COMPLETED_', item.completed);
       }
       // update counters
       var updateCounters = function() {
