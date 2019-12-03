@@ -35,18 +35,31 @@
       //var listItems
       var loadlist = function() {
         if (localStorage.listItems) return JSON.parse(localStorage.listItems);
+      
+      return [
+          { text: 'Buy coffee',  completed: true  },
+          { text: 'Buy milk',    completed: false },
+          { text: 'Disco dance', completed: false }
+        ];
       }
-      var listItems = [
-        { text: 'Buy coffee',  completed: true  },
-        { text: 'Buy milk',    completed: false },
-        { text: 'Disco dance', completed: false }
-      ];
+      // Defining our `updateList()` function...
+      var updateList = function(items, save) {
+          var listElement = document.querySelector('#task-list');
+          listElement.innerHTML = '';
+          items.forEach(function(item) {
+            listElement.innerHTML += renderItem(item);
+          });
+          if (save) localStorage.listItems = JSON.stringify(items);
+          updateCounters();
+      }
+      
+      // render item
       var renderItem = function(item) {
         var template = document.querySelector('#item-template').innerHTML;
-        return template.replace('_TEXT_', item.text);
+        return template
+          .replace('_TEXT_', item.text);
+          .replace('_COMPLETED_', item.completed);
       }
-
-
       // update counters
       var updateCounters = function() {
         var completedCount = 0;
@@ -60,16 +73,6 @@
         document.querySelector('.filter-completed').dataset.count = completedCount;
       }
 
-      // Defining our `updateList()` function...
-      var updateList = function(items, save) {
-        var listElement = document.querySelector('#task-list');
-        listElement.innerHTML = '';
-        items.forEach(function(item) {
-          listElement.innerHTML += renderItem(item);
-        });
-        if (save) localStorage.listItems = JSON.stringify(items);
-        updateCounters();
-      }
       updateList(listItems, true);
       // Create new task
       var createNew = function(event) {
