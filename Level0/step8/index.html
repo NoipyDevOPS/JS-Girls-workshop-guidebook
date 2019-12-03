@@ -15,9 +15,6 @@
     <h2>Awesome Tasks</h2>
     <ul id="task-list" class="list-group">
     </ul>
-  
-  <hr>
-  <button onclick="clearCompleted()" class="btn btn-default btn-xs">Clear completed</button>
 
     <div class="panel-footer text-center small">
       <span>show:</span>
@@ -29,7 +26,10 @@
     <form onsubmit="createNew(event)">
         <input id="new-item" placeholder="Add a new task...">
         <button>Add</button>
-      </form>
+    </form>
+
+    <hr>
+    <button onclick="clearCompleted()" class="btn btn-default btn-xs">Clear completed</button>
 
     <script>
     
@@ -112,16 +112,22 @@
           itemsToShow = listItems.filter(function(item) {
             return item.completed;
           });  
-        } else if (status == 'active') {
+        } 
+        
+        else if (status == 'active') {
               itemsToShow = listItems.filter(function(item) {
                 return !item.completed;
               });  
-          } else {
+        } 
+        
+        else {
             itemsToShow = listItems;
             }
 
           updateList(itemsToShow);
         }
+
+      // clear completed   
 
       var clearCompleted = function() {
         listItems = listItems.filter(function(item) {
