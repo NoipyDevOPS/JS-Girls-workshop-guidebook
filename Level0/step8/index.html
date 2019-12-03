@@ -32,9 +32,7 @@
     <button onclick="clearCompleted()" class="btn btn-default btn-xs">Clear completed</button>
 
     <script>
-
-      //var listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
-
+      //var listItems
       var loadlist = function() {
         if (localStorage.listItems) return JSON.parse(localStorage.listItems);
       }
@@ -47,6 +45,7 @@
         var template = document.querySelector('#item-template').innerHTML;
         return template.replace('_TEXT_', item.text);
       }
+<<<<<<< HEAD
 
 
       // update counters
@@ -62,39 +61,30 @@
         document.querySelector('.filter-completed').dataset.count = completedCount;
       }
 
+=======
+>>>>>>> 6471fd5cc0e0f0474e772db3e67bfd94ad8855ec
       // Defining our `updateList()` function...
       var updateList = function(items, save) {
         var listElement = document.querySelector('#task-list');
         listElement.innerHTML = '';
-
         items.forEach(function(item) {
           listElement.innerHTML += renderItem(item);
         });
-
         if (save) localStorage.listItems = JSON.stringify(items);
-
         updateCounters();
       }
-
       updateList(listItems, true);
-
       // Create new task
       var createNew = function(event) {
         event.preventDefault();
-
         var newItemElement = document.querySelector('#new-item');
         var newItemValue = newItemElement.value.trim();
-
         if (!newItemValue) return;
-
         var item = { text: newItemValue, completed: false }
-
         listItems.push(item);
         newItemElement.value = '';
-
         updateList(listItems, true);
       }
-
       //remove task
       var removeItem = function(event) {
         var clickedItemText = event.target.previousElementSibling.innerHTML;
@@ -106,47 +96,61 @@
 
       var toggleStatus = function(event) {
         var clickedItemText = event.target.innerHTML;
-
         listItems.forEach(function(item) {
           if (clickedItemText == item.text) {
             item.completed = !item.completed;
           }
         });
         updateList(listItems, true);
+<<<<<<< HEAD
       }
 
+=======
+>>>>>>> 6471fd5cc0e0f0474e772db3e67bfd94ad8855ec
       //filtra items
       var filterItems = function(status) {
         var itemsToShow = [];
-
         if (status== 'completed') {
           itemsToShow = listItems.filter(function(item) {
             return item.completed;
           });
         }
-
         else if (status == 'active') {
               itemsToShow = listItems.filter(function(item) {
                 return !item.completed;
               });
         }
-
         else {
             itemsToShow = listItems;
             }
-
           updateList(itemsToShow);
+<<<<<<< HEAD
       }
 
+=======
+        }
+>>>>>>> 6471fd5cc0e0f0474e772db3e67bfd94ad8855ec
       // clear completed
       var clearCompleted = function() {
         listItems = listItems.filter(function(item) {
           return !item.completed;
         });
-
         updateList(listItems, true);
       }
+<<<<<<< HEAD
 
+=======
+      // update counters
+      var updateCounters = function() {
+        var completedCount = 0;
+        listItems.forEach(function(item) {
+          if (item.completed) completedCount++;
+        });
+        document.querySelector('.filter-all').dataset.count = listItems.length;
+        document.querySelector('.filter-active').dataset.count = listItems.length - completedCount;
+        document.querySelector('.filter-completed').dataset.count = completedCount;
+      }
+>>>>>>> 6471fd5cc0e0f0474e772db3e67bfd94ad8855ec
     </script>
   </body>
 </html>
