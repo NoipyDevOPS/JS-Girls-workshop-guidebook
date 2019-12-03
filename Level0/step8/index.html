@@ -22,7 +22,7 @@
       <button onclick="filterItems('active')" class="filter filter-active">Active</button>
       <button onclick="filterItems('completed')" class="filter filter-completed">Completed</button>
     </div>
-    
+
     <form onsubmit="createNew(event)">
         <input id="new-item" placeholder="Add a new task...">
         <button>Add</button>
@@ -32,9 +32,9 @@
     <button onclick="clearCompleted()" class="btn btn-default btn-xs">Clear completed</button>
 
     <script>
-    
+
       //var listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
-      
+
       var loadlist = function() {
         if (localStorage.listItems) return JSON.parse(localStorage.listItems);
       }
@@ -46,7 +46,7 @@
       var renderItem = function(item) {
         var template = document.querySelector('#item-template').innerHTML;
         return template.replace('_TEXT_', item.text);
-      }  
+      }
 
       // Defining our `updateList()` function...
 
@@ -55,16 +55,16 @@
         listElement.innerHTML = '';
 
         items.forEach(function(item) {
-          listElement.innerHTML += renderItem(item);   
+          listElement.innerHTML += renderItem(item);
         });
 
         if (save) localStorage.listItems = JSON.stringify(items);
 
-        updateCounters(); 
+        updateCounters();
       }
-      
+
       updateList(listItems, true);
-      
+
       // Create new task
 
       var createNew = function(event) {
@@ -76,13 +76,13 @@
         if (!newItemValue) return;
 
         var item = { text: newItemValue, completed: false }
-        
+
         listItems.push(item);
         newItemElement.value = '';
 
         updateList(listItems, true);
       }
-      
+
       //remove task
 
       var removeItem = function(event) {
@@ -100,7 +100,7 @@
             item.completed = !item.completed;
           }
         });
-
+      }
         updateList(listItems, true);
 
       //filtra items
@@ -111,15 +111,15 @@
         if (status== 'completed') {
           itemsToShow = listItems.filter(function(item) {
             return item.completed;
-          });  
-        } 
-        
+          });
+        }
+
         else if (status == 'active') {
               itemsToShow = listItems.filter(function(item) {
                 return !item.completed;
-              });  
-        } 
-        
+              });
+        }
+
         else {
             itemsToShow = listItems;
             }
@@ -127,7 +127,7 @@
           updateList(itemsToShow);
         }
 
-      // clear completed   
+      // clear completed
 
       var clearCompleted = function() {
         listItems = listItems.filter(function(item) {
@@ -135,7 +135,7 @@
         });
 
         updateList(listItems, true);
-      }    
+      }
 
       // update counters
 
@@ -150,7 +150,7 @@
         document.querySelector('.filter-active').dataset.count = listItems.length - completedCount;
         document.querySelector('.filter-completed').dataset.count = completedCount;
       }
-    }
+
     </script>
   </body>
 </html>
